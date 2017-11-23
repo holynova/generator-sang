@@ -1,10 +1,10 @@
 {
   "name": "generator-sang",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "...",
   "homepage": "https://github.com/holynova/generator-sang",
   "author": {
-    "name": "ymsang",
+    "name": "holy_nova",
     "email": "holy_nova@126.com",
     "url": "https://github.com/holynova/generator-sang"
   },
