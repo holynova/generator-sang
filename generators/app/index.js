@@ -29,14 +29,15 @@ module.exports = class extends Generator {
   writing() {
     this.fs.copy(this.templatePath('all'), this.destinationPath());
     // This.fs.copy(this.templatePath('all/src'), this.destinationPath('src'));
-    this.fs.copy(this.templatePath('all/_.babelrc'), this.destinationPath('all/.babelrc'));
+    this.fs.copy(this.templatePath('tools/_.babelrc'),
+      this.destinationPath('.babelrc'));
     this.fs.copy(
-      this.templatePath('all/_.eslintrc.js'),
-      this.destinationPath('all/.eslintrc.js')
+      this.templatePath('tools/_.eslintrc.js'),
+      this.destinationPath('.eslintrc.js')
     );
     this.fs.copy(
-      this.templatePath('all/_.gitignore'),
-      this.destinationPath('all/.gitignore')
+      this.templatePath('tools/_.gitignore'),
+      this.destinationPath('.gitignore')
     );
     // This.fs.copy(this.templatePath('all/.babelrc'), this.destinationPath('all/.babelrc'));
   }
