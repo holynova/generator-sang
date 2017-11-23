@@ -43,6 +43,7 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.installDependencies();
+    // this.installDependencies();
+    this.npmInstall();
   }
 };
