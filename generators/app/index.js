@@ -4,10 +4,6 @@ const chalk = require('chalk');
 const yosay = require('yosay');
 
 module.exports = class extends Generator {
-  // Init() {
-  //   this.log(this.fs.copy);
-  //   this.log(this.fs.mkdir);
-  // }
   prompting() {
     // Have Yeoman greet the user.
     this.log(
@@ -30,19 +26,19 @@ module.exports = class extends Generator {
     });
   }
 
-  // MakeFolders() {
-  //   const name = this.props.projectName;
-  //   this.fs.mkdir(name);
-  //   this.fs.mkdir(name + '/src');
-  //   this.fs.mkdir(name + '/src/images');
-  //   this.fs.mkdir(name + '/src/styles');
-  //   this.fs.mkdir(name + '/src/scripts');
-  // }
-
   writing() {
     this.fs.copy(this.templatePath('all'), this.destinationPath());
     // This.fs.copy(this.templatePath('all/src'), this.destinationPath('src'));
-    // This.fs.copy(this.templatePath(''), this.destinationPath('src'));
+    this.fs.copy(this.templatePath('all/_.babelrc'), this.destinationPath('all/.babelrc'));
+    this.fs.copy(
+      this.templatePath('all/_.eslintrc.js'),
+      this.destinationPath('all/.eslintrc.js')
+    );
+    this.fs.copy(
+      this.templatePath('all/_.gitignore'),
+      this.destinationPath('all/.gitignore')
+    );
+    // This.fs.copy(this.templatePath('all/.babelrc'), this.destinationPath('all/.babelrc'));
   }
 
   install() {
