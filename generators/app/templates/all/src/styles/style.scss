@@ -1,0 +1,125 @@
+$primary-color: #2F96A9;
+// $primary-color: red;
+$light-grey:#f1f1f1;
+$dark-grey:#ccc;
+$hover-color:#84D8CB;
+$shadow:0 2px 2px 0 rgba(0, 0, 0, .05),
+0 1px 4px 0 rgba(0, 0, 0, .08),
+0 3px 1px -2px rgba(0, 0, 0, .2);
+* {
+  box-sizing: border-box; // transition: all 0.2s ease-in-out;
+  font-family: Microsoft YaHei, Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.middle-content {
+  width: 80%;
+  min-width: 12rem*2;
+  max-width: 12rem*5;
+  margin: 0 auto;
+}
+
+html {
+  font-size: 14px;
+  body {
+    header {
+      background-color: $primary-color; // color: #fff;
+      height: 56px;
+      line-height: 56px; // padding-left: 5rem;
+      font-size: 1.2rem;
+      .title {
+        @extend .middle-content;
+        color: $light-grey;
+        span.icon {
+          top: 5px;
+          position: absolute; // padding-top: 2px;
+        }
+        span.name {
+          padding-left: 30px;
+        }
+        span#version {
+          padding-left: 1rem;
+          font-size: 1rem;
+        }
+        a {
+          color: $dark-grey;
+          font-size: 0.8rem;
+        }
+      }
+    }
+    background-color: $light-grey;
+    .wrapper {
+      @extend .middle-content;
+      #content {
+        .group {
+          box-sizing: border-box;
+          float: left;
+          width: 11rem;
+          margin-top: 1rem;
+          margin-bottom: 1.2rem;
+          margin-right: 1rem;
+          text-align: center;
+          .group-title {
+            text-align: center;
+            color: #616161;
+            background-color: $light-grey; // padding-left: 2rem;
+          }
+          ul {
+            // padding: 0 1rem;
+            background-color: #fff;
+            box-shadow: $shadow;
+            li {
+              border-bottom: 1px dashed #eef;
+              &:last-of-type {
+                border-bottom: none;
+              }
+              height: 4rem;
+              line-height: 4rem;
+              a {
+                display: block;
+                width: 100%;
+                height: 100%;
+                .link-name,
+                .link-url {
+                  float: left;
+                }
+                .link-name {
+                  font-size: 0.9rem;
+                  color: $primary-color;
+                  width: 100%; // min-width: 10rem;
+                  // padding-left: 2rem;
+                  // font-weight: bold;
+                }
+                .link-url {
+                  display: none;
+                  font-size: 0.8rem;
+                  color: #959595;
+                  width: 60%;
+                  padding-right: 1rem;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis; // float: left;
+                }
+                &:hover {
+                  // transition: all 0.3s ease-in; // color: #ffd;
+                  background-color: $hover-color;
+                  .link-name {
+                    color: #fff;
+                    font-size: 1.1rem;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
