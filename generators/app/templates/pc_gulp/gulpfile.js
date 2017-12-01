@@ -3,9 +3,9 @@ const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();
 
 const srcPath = './src/';
-const destPath = './dest/';
+const destPath = './dist/';
 const revPath = './rev/';
-const version = '1.1.0';
+// const version = '1.1.0';
 
 const log = console.log;
 
@@ -49,13 +49,13 @@ gulp.task('less', (cb) => {
     .on('end', cb);
 });
 gulp.task('scss', (cb) => {
-  gulp.src(filter.less)
+  gulp.src(filter.scss)
     .pipe($.sass())
     .pipe($.csso())
     .pipe($.rev())
     .pipe(gulp.dest(`${destPath}/css`))
     .pipe($.rev.manifest())
-    .pipe(gulp.dest(`${revPath}/less`))
+    .pipe(gulp.dest(`${revPath}/scss`))
     .on('end', cb);
 });
 gulp.task('css', (cb) => {
