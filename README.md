@@ -12,7 +12,14 @@ npm install -g generator-sang
 2. cd 到项目文件夹
 3. 命令行运行 `yo sang` 然后按指令选择模板执行
 
+## 支持的项目类型
+1. 移动端Html5 + webpack
+2. PC端网页 + webpack
+3. 移动端Html5 + gulp
+4. PC端网页 + gulp
+
 ## 调试命令
+
 ### gulp项目命令
 ```
 # 编译生成生产环境文件
