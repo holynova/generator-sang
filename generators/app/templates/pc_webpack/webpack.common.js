@@ -8,9 +8,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const srcPath = path.resolve(__dirname, 'src');
 const dir = {
-  js: `${srcPath}/js`,
-  style: `${srcPath}/style`,
-  imgs: `${srcPath}/imgs`,
+  js: `${srcPath}/scripts`,
+  style: `${srcPath}/styles`,
+  imgs: `${srcPath}/images`,
 };
 
 module.exports = {

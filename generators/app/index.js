@@ -13,7 +13,7 @@ const typeDict = {
 module.exports = class extends Generator {
   prompting() {
     // Have Yeoman greet the user.
-    this.log('请先建立文件夹, cd到项目文件夹, 再运行 yo sang');
+    this.log('请先建立项目文件夹, cd到项目文件夹, 再运行命令: yo sang');
     let message = "选择项目类型:\n"
     let keys = Object.keys(typeDict)
     for (let i = 0; i < keys.length; i++) {
@@ -27,7 +27,7 @@ module.exports = class extends Generator {
         type: 'input',
         name: 'projectType',
         message,
-        Default: 1
+        default: 1
       }
     ];
 
@@ -39,10 +39,12 @@ module.exports = class extends Generator {
 
   writing() {
     const type = this.props.projectType
+    // this.log('this.props.projectType' + this.props.projectType)
+
     let settings = typeDict[type]
+    // this.log('settings', settings)
     if (settings) {
-      let { tplPath } = settings
-      this.fs.copy(this.templatePath(tplPath), this.destinationPath());
+      this.fs.copy(this.templatePath(settings.tplPath), this.destinationPath());
     }
   }
   //复制以点开头的特殊文件
@@ -50,13 +52,13 @@ module.exports = class extends Generator {
     const toolsPath = 'tools'
     const files = [
       { srcName: '_.babelrc', destName: '.babelrc' },
-      { srcName: '_.eslintrc', destName: '.eslintrc' },
+      { srcName: '_.eslintrc.js', destName: '.eslintrc.js' },
       { srcName: '_.gitignore', destName: '.gitignore' },
     ]
     for (let i = 0; i < files.length; i++) {
       let { srcName, destName } = files[i]
       // let fromPath = path.resolve(toolsPath, srcName)
-      let fromPath = `${toolsPath}/${srcName}`
+      let fromPath = `${toolsPath}\\${srcName}`
       this.fs.copy(
         this.templatePath(fromPath),
         this.destinationPath(destName));
@@ -64,6 +66,7 @@ module.exports = class extends Generator {
   }
 
   install() {
+    this.log('正在安装依赖包, 你可以选择手动中止, 手动用cnpm来安装以加快速度')
     this.npmInstall();
   }
 };

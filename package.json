@@ -1,7 +1,7 @@
 {
   "name": "generator-sang",
-  "version": "0.2.0",
-  "description": "...",
+  "version": "0.2.6",
+  "description": "基于Yeoman的前端项目脚手架",
   "homepage": "https://github.com/holynova/generator-sang",
   "author": {
     "name": "holy_nova",

@@ -1,27 +1,23 @@
 # generator-sang [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
-> ...
+> 基于Yeoman的前端脚手架
+## 说明
 
-## Installation
-
-First, install [Yeoman](http://yeoman.io) and generator-sang using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
-
+## 安装
 ```bash
 npm install -g yo
 npm install -g generator-sang
 ```
+## 使用
+1. 创建项目文件夹
+2. cd 到项目文件夹
+3. 命令行运行 `yo sang` 然后按指令选择模板执行
 
-Then generate your new project:
-
-```bash
-yo sang
+## 命令
+### webpack项目
 ```
-
-## Getting To Know Yeoman
-
- * Yeoman has a heart of gold.
- * Yeoman is a person with feelings and opinions, but is very easy to work with.
- * Yeoman can be too opinionated at times but is easily convinced not to be.
- * Feel free to [learn more about Yeoman](http://yeoman.io/).
+npm start #启动自动刷新的本地server
+npm run build # 编译生成生产环境文件
+```
 
 ## License
 
