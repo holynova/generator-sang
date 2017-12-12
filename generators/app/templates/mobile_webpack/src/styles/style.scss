@@ -1,0 +1,10 @@
+@function p($px) {
+  @return $px /548 * 750 / $html_font_size * 1rem
+}
+
+$html_font_size:75px;
+html {
+  body {
+    .wrapper {}
+  }
+}

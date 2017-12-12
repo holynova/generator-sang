@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const path = require('path')
 // Const yosay = require('yosay');
 const typeDict = {
-  1: { title: '移动端Html5 + webpack', tplPath: 'pc_webpack' },
+  1: { title: '移动端Html5 + webpack', tplPath: 'mobile_webpack' },
   2: { title: 'PC端网页 + webpack', tplPath: 'pc_webpack' },
   3: { title: '移动端Html5 + gulp', tplPath: 'pc_gulp' },
   4: { title: 'PC端网页 + gulp', tplPath: 'pc_gulp' },
