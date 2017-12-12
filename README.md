@@ -34,6 +34,9 @@ npm start
 # 编译生成生产环境文件
 npm run build 
 ```
+## 常见错误及解决方法
+- webpack 项目 `npm start` 后报错
+- 解决: 打开`webpack.dev.js` 文件 修改`port`为一个未被占用的端口
 
 ## License
 
