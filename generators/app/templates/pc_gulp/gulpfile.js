@@ -32,7 +32,7 @@ gulp.task('js', (cb) => {
     .pipe($.babel({ presets: ['env'] }))
     .pipe($.uglify())
     .pipe($.rev())
-    .pipe(gulp.dest(`${destPath}/js`))
+    .pipe(gulp.dest(`${destPath}/scripts`))
     .pipe($.rev.manifest())
     .pipe(gulp.dest(`${revPath}/js`))
     .on('end', cb);
@@ -43,7 +43,7 @@ gulp.task('less', (cb) => {
     .pipe($.less())
     .pipe($.csso())
     .pipe($.rev())
-    .pipe(gulp.dest(`${destPath}/css`))
+    .pipe(gulp.dest(`${destPath}/styles`))
     .pipe($.rev.manifest())
     .pipe(gulp.dest(`${revPath}/less`))
     .on('end', cb);
@@ -53,7 +53,7 @@ gulp.task('scss', (cb) => {
     .pipe($.sass())
     .pipe($.csso())
     .pipe($.rev())
-    .pipe(gulp.dest(`${destPath}/css`))
+    .pipe(gulp.dest(`${destPath}/styles`))
     .pipe($.rev.manifest())
     .pipe(gulp.dest(`${revPath}/scss`))
     .on('end', cb);
@@ -62,7 +62,7 @@ gulp.task('css', (cb) => {
   gulp.src(filter.css)
     .pipe($.csso())
     .pipe($.rev())
-    .pipe(gulp.dest(`${destPath}/css`))
+    .pipe(gulp.dest(`${destPath}/styles`))
     .pipe($.rev.manifest())
     .pipe(gulp.dest(`${revPath}/css`))
     .on('end', cb);
@@ -72,7 +72,7 @@ gulp.task('image', (cb) => {
   gulp.src(filter.img)
     .pipe($.imagemin())
     .pipe($.rev())
-    .pipe(gulp.dest(`${destPath}/imgs`))
+    .pipe(gulp.dest(`${destPath}/images`))
     .pipe($.rev.manifest())
     .pipe(gulp.dest(`${revPath}/imgs`))
     .on('end', cb);
