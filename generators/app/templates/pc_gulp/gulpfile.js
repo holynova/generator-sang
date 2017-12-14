@@ -2,99 +2,144 @@ const del = require('del');
 const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();
 
-const srcPath = './src/';
-const destPath = './dist/';
-const revPath = './rev/';
-// const version = '1.1.0';
+const srcFolder = './src/';
+const destFolder = './dist/';
+const revFolder = './rev/';
 
+// function genPath() {
+
+// }
+
+// const path = genPath();
 const log = console.log;
 
-
-const filter = {
-  less: `${srcPath}/styles/*.less`,
-  scss: `${srcPath}/styles/*.scss`,
-  css: `${srcPath}/styles/*.css`,
-  html: `${srcPath}*.html`,
-  img: `${srcPath}images/*.*`,
-  js: `${srcPath}/scripts/*.js`,
+const srcFilter = {
+  less: `${srcFolder}/styles/*.less`,
+  scss: `${srcFolder}/styles/*.scss`,
+  css: `${srcFolder}/styles/*.css`,
+  html: `${srcFolder}*.html`,
+  img: `${srcFolder}images/*.*`,
+  js: `${srcFolder}/scripts/*.js`,
+  styles: `${srcFolder}/styles/*.{less,scss,css}`,
+};
+const destPath = {
+  css: `${destFolder}/styles`,
+  html: destFolder,
+  img: `${destFolder}images`,
+  js: `${destFolder}/scripts`,
 };
 
+const revPath = {
+  css: `${revFolder}/styles`,
+  html: revFolder,
+  img: `${revFolder}/images`,
+  js: `${revFolder}/scripts`,
+};
 
 gulp.task('del', (cb) => {
-  del(destPath).then(() => {
+  del(destFolder).then(() => {
     log('dest dir clear');
     cb();
   });
 });
-gulp.task('js', (cb) => {
-  gulp.src(filter.js)
-    .pipe($.debug())
-    .pipe($.babel({ presets: ['env'] }))
-    .pipe($.uglify())
-    .pipe($.rev())
-    .pipe(gulp.dest(`${destPath}/scripts`))
-    .pipe($.rev.manifest())
-    .pipe(gulp.dest(`${revPath}/js`))
-    .on('end', cb);
-});
 
-gulp.task('less', (cb) => {
-  gulp.src(filter.less)
-    .pipe($.less())
-    .pipe($.csso())
-    .pipe($.rev())
-    .pipe(gulp.dest(`${destPath}/styles`))
-    .pipe($.rev.manifest())
-    .pipe(gulp.dest(`${revPath}/less`))
-    .on('end', cb);
-});
-gulp.task('scss', (cb) => {
-  gulp.src(filter.scss)
-    .pipe($.sass())
-    .pipe($.csso())
-    .pipe($.rev())
-    .pipe(gulp.dest(`${destPath}/styles`))
-    .pipe($.rev.manifest())
-    .pipe(gulp.dest(`${revPath}/scss`))
-    .on('end', cb);
-});
-gulp.task('css', (cb) => {
-  gulp.src(filter.css)
-    .pipe($.csso())
-    .pipe($.rev())
-    .pipe(gulp.dest(`${destPath}/styles`))
-    .pipe($.rev.manifest())
-    .pipe(gulp.dest(`${revPath}/css`))
-    .on('end', cb);
-});
-
-gulp.task('image', (cb) => {
-  gulp.src(filter.img)
-    .pipe($.imagemin())
-    .pipe($.rev())
-    .pipe(gulp.dest(`${destPath}/images`))
-    .pipe($.rev.manifest())
-    .pipe(gulp.dest(`${revPath}/imgs`))
-    .on('end', cb);
-});
-
-gulp.task('html', (cb) => {
-  gulp.src([`${revPath}/**/*.json`, filter.html])
-    .pipe($.revCollector())
-    .pipe($.htmlmin({ collapseWhitespace: true, removeComments: true }))
-    .pipe(gulp.dest(destPath))
-    .on('end', cb);
-});
 gulp.task('delRev', (cb) => {
-  del(revPath).then(() => {
+  del(revFolder).then(() => {
     cb();
   });
 });
 
-gulp.task('watch', () => {
-  gulp.watch([filter.less, filter.html, filter.img], ['debug']);
-  log('watching...');
-  // content
+gulp.task('image_md5', (cb) => {
+  gulp.src(srcFilter.img)
+    .pipe($.imagemin())
+    .pipe($.rev())
+    .pipe(gulp.dest(destPath.img))
+    .pipe($.rev.manifest())
+    .pipe(gulp.dest(revPath.img))
+    .on('end', cb);
 });
 
-gulp.task('default', $.sequence('del', 'less', 'scss', 'css', 'js', 'html', 'delRev'));
+
+gulp.task('replace_image_in_style', (cb) => {
+  gulp.src([`${revPath.img}/*.json`, srcFilter.styles])
+    // .pipe($.debug())
+    .pipe($.revCollector())
+    .pipe(gulp.dest(revPath.css))
+    .on('end', cb);
+});
+
+gulp.task('replace_image_in_js', (cb) => {
+  gulp.src([`${revPath.img}/*.json`, srcFilter.js])
+    // .pipe($.debug())
+    .pipe($.revCollector())
+    .pipe(gulp.dest(revPath.js))
+    .on('end', cb);
+});
+
+
+gulp.task('less_to_css', (cb) => {
+  gulp.src(`${revPath.css}/*.less`)
+    .pipe($.less())
+    .pipe($.csso())
+    .pipe($.rev())
+    .pipe(gulp.dest(destPath.css))
+    .pipe($.rev.manifest())
+    .pipe(gulp.dest(revPath.css))
+    .on('end', cb);
+});
+gulp.task('scss_to_css', (cb) => {
+  gulp.src(`${revPath.css}/*.scss`)
+
+    .pipe($.sass())
+    .pipe($.csso())
+    .pipe($.rev())
+    .pipe(gulp.dest(destPath.css))
+    .pipe($.rev.manifest())
+    .pipe(gulp.dest(revPath.css))
+    .on('end', cb);
+});
+gulp.task('css', (cb) => {
+  gulp.src(`${revPath.css}/*.css`)
+    .pipe($.csso())
+    .pipe($.rev())
+    .pipe(gulp.dest(destPath.css))
+    .pipe($.rev.manifest())
+    .pipe(gulp.dest(revPath.css))
+    .on('end', cb);
+});
+gulp.task('all_css', ['less_to_css', 'scss_to_css', 'css']);
+
+gulp.task('js', (cb) => {
+  gulp.src(`${revPath.js}/*.js`)
+    .pipe($.debug())
+    .pipe($.babel({
+      presets: ['env'],
+    }))
+    .pipe($.uglify())
+    .pipe($.rev())
+    .pipe(gulp.dest(destPath.js))
+    .pipe($.rev.manifest())
+    .pipe(gulp.dest(revPath.js))
+    .on('end', cb);
+});
+
+gulp.task('html', (cb) => {
+  gulp.src([`${revFolder}/**/*.json`, srcFilter.html])
+    .pipe($.revCollector())
+    .pipe($.htmlmin({
+      collapseWhitespace: true,
+      removeComments: true,
+    }))
+    .pipe(gulp.dest(destPath.html))
+    .on('end', cb);
+});
+
+gulp.task('default', $.sequence(
+  'del',
+  'delRev',
+  'image_md5',
+  ['replace_image_in_style', 'replace_image_in_js'],
+  ['all_css', 'js'],
+  'html',
+  'delRev',
+));
