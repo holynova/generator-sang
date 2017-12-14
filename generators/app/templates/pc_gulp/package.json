@@ -38,5 +38,6 @@
     "gulp-sequence": "^0.4.6",
     "gulp-uglify": "^3.0.0",
     "jsonfile": "^3.0.1"
+
   }
 }

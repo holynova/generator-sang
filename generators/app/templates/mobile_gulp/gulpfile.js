@@ -5,12 +5,6 @@ const $ = require('gulp-load-plugins')();
 const srcFolder = './src/';
 const destFolder = './dist/';
 const revFolder = './rev/';
-
-// function genPath() {
-
-// }
-
-// const path = genPath();
 const log = console.log;
 
 const srcFilter = {
@@ -22,19 +16,18 @@ const srcFilter = {
   js: `${srcFolder}/scripts/*.js`,
   styles: `${srcFolder}/styles/*.{less,scss,css}`,
 };
-const destPath = {
-  css: `${destFolder}/styles`,
-  html: destFolder,
-  img: `${destFolder}images`,
-  js: `${destFolder}/scripts`,
-};
 
-const revPath = {
-  css: `${revFolder}/styles`,
-  html: revFolder,
-  img: `${revFolder}/images`,
-  js: `${revFolder}/scripts`,
-};
+function getPath(baseFolder) {
+  return {
+    css: `${baseFolder}/styles`,
+    img: `${baseFolder}images`,
+    js: `${baseFolder}/scripts`,
+    html: baseFolder,
+  };
+}
+const destPath = getPath(destFolder);
+const revPath = getPath(revFolder);
+
 
 gulp.task('del', (cb) => {
   del(destFolder).then(() => {
@@ -134,6 +127,13 @@ gulp.task('html', (cb) => {
     .on('end', cb);
 });
 
+gulp.task('inlinesource', (cb) => {
+  gulp.src(`${destPath.html}/*.html`)
+    .pipe($.inlineSource())
+    .pipe(gulp.dest(destPath.html))
+    .on('end', cb);
+});
+
 gulp.task('default', $.sequence(
   'del',
   'delRev',
@@ -142,4 +142,5 @@ gulp.task('default', $.sequence(
   ['all_css', 'js'],
   'html',
   'delRev',
+  'inlinesource',
 ));
