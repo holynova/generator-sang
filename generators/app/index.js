@@ -58,7 +58,8 @@ module.exports = class extends Generator {
     for (let i = 0; i < files.length; i++) {
       let { srcName, destName } = files[i];
       // Let fromPath = path.resolve(toolsPath, srcName)
-      let fromPath = `${toolsPath}\\${srcName}`;
+      let fromPath = path.join(toolsPath, toolsPath);
+      //  `${toolsPath}\\${srcName}`;
       this.fs.copy(
         this.templatePath(fromPath),
         this.destinationPath(destName));
